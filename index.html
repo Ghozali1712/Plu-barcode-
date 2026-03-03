@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Product Finder - Dengan Tambah Produk</title>
+    <title>Product Finder Pro | Database Management</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
         * {
             margin: 0;
@@ -11,187 +18,415 @@
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 10px;
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #4895ef;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --success-dark: #3fa8c7;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --dark: #1e1e2f;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+            --border: #e9ecef;
+            
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+            --shadow-hover: 0 20px 40px rgba(67, 97, 238, 0.15);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            
+            --transition: all 0.25s ease;
         }
 
-        .container {
-            max-width: 500px;
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .glass-container {
+            max-width: 560px;
+            width: 100%;
             margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Decorative Elements */
+        .glass-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 70% 30%, rgba(67, 97, 238, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* Header */
+        .brand-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 30px 25px;
+            position: relative;
             overflow: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .brand-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
+
+        .brand-header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
             color: white;
-            padding: 20px;
-            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        header h1 {
-            font-size: 1.8em;
-            margin-bottom: 5px;
+        .brand-header h1 i {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            border-radius: 16px;
+            font-size: 0.8em;
+            backdrop-filter: blur(5px);
         }
 
-        header p {
+        .brand-header p {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.95em;
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-header p i {
+            font-size: 1.1em;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            background: white;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
             font-size: 0.9em;
-            opacity: 0.9;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            color: var(--dark);
+        }
+
+        .status-bar i {
+            font-size: 1.1em;
+        }
+
+        .status-bar.success {
+            background: #e8faf1;
+            color: #0b5e42;
+            border-bottom-color: #a7e0c5;
+        }
+
+        .status-bar.error {
+            background: #fff1f0;
+            color: #b34033;
+            border-bottom-color: #ffcdc9;
+        }
+
+        .status-bar.loading {
+            background: #e8f0fe;
+            color: var(--primary);
+        }
+
+        /* Database Badge */
+        .db-badge {
+            margin-left: auto;
+            background: rgba(67, 97, 238, 0.1);
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.85em;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .db-badge i {
+            font-size: 0.9em;
         }
 
         /* Tab Navigation */
         .tab-nav {
             display: flex;
-            background: #f8f9fa;
-            border-bottom: 1px solid #e0e0e0;
+            background: white;
+            padding: 12px 20px;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
         }
 
         .tab-btn {
             flex: 1;
-            padding: 15px;
-            background: none;
+            padding: 12px 16px;
+            background: transparent;
             border: none;
-            font-size: 14px;
+            border-radius: var(--radius-md);
+            font-size: 0.95em;
             font-weight: 600;
-            color: #666;
+            color: var(--gray);
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            color: #667eea;
-            border-bottom: 3px solid #667eea;
-            background: white;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .tab-btn i {
-            margin-right: 5px;
+            font-size: 1.1em;
+        }
+
+        .tab-btn:hover {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
         }
 
         /* Tab Content */
         .tab-content {
             display: none;
-            padding: 20px;
+            padding: 25px;
+            background: white;
         }
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Search Section */
-        .search-box {
+        .search-container {
+            margin-bottom: 25px;
+        }
+
+        .search-label {
             display: flex;
+            align-items: center;
             gap: 8px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95em;
+        }
+
+        .search-label i {
+            color: var(--primary);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 12px;
             margin-bottom: 15px;
         }
 
-        .search-box textarea {
+        .input-group textarea {
             flex: 1;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 14px;
-            resize: vertical;
-            min-height: 80px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.95em;
             font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+            transition: var(--transition);
+            background: var(--light);
         }
 
-        .search-box textarea:focus {
+        .input-group textarea:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
         }
 
-        #searchBtn {
-            padding: 0 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .search-btn {
+            padding: 0 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 14px;
+            border-radius: var(--radius-md);
             font-weight: 600;
+            font-size: 1em;
             cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
         }
 
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Quick Actions */
         .quick-actions {
             display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .quick-actions button {
-            flex: 1;
-            padding: 10px;
+        .action-btn {
+            padding: 10px 18px;
             background: white;
-            border: 1px solid #667eea;
-            color: #667eea;
-            border-radius: 8px;
-            font-size: 13px;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: var(--gray);
             cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--light);
+        }
+
+        .action-btn i {
+            font-size: 1em;
         }
 
         /* Not Found Section */
         .not-found-section {
-            background: #fff3cd;
-            border: 1px solid #ffeeba;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
+            background: #fff9f0;
+            border: 1px solid #ffe0b3;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin-bottom: 25px;
         }
 
         .not-found-header {
             display: flex;
             align-items: center;
-            gap: 10px;
-            color: #856404;
-            margin-bottom: 10px;
+            gap: 12px;
+            color: #b45b0a;
+            margin-bottom: 15px;
         }
 
         .not-found-header i {
-            font-size: 24px;
+            font-size: 1.5em;
         }
 
         .not-found-header h3 {
-            font-size: 16px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .not-found-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .not-found-item {
             background: white;
-            border-radius: 8px;
-            padding: 10px;
-            margin-bottom: 8px;
+            border-radius: var(--radius-md);
+            padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 4px solid #dc3545;
+            border-left: 4px solid var(--warning);
+            box-shadow: var(--shadow-sm);
         }
 
         .not-found-item .query {
             font-weight: 600;
-            color: #dc3545;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .not-found-item .query i {
+            color: var(--warning);
         }
 
         .add-query-btn {
-            background: #28a745;
+            background: var(--success);
             color: white;
             border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 12px;
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 0.9em;
+            font-weight: 500;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+
+        .add-query-btn:hover {
+            background: var(--success-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 201, 240, 0.3);
         }
 
         /* Swipe Container */
         .swipe-container {
             position: relative;
             width: 100%;
-            background: #f5f5f5;
-            border-radius: 10px;
-            min-height: 450px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
         }
 
         .product-track {
@@ -200,97 +435,138 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
-            height: 100%;
-            min-height: 450px;
+            min-height: 550px;
         }
 
         .product-track::-webkit-scrollbar {
             display: none;
         }
 
+        /* Product Card */
         .product-card {
             flex: 0 0 100%;
             scroll-snap-align: start;
             background: white;
-            border-radius: 10px;
-            overflow-y: auto;
-            padding: 20px;
+            padding: 25px;
         }
 
-        .product-header {
-            text-align: center;
-            margin-bottom: 15px;
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
 
-        .product-header h3 {
-            font-size: 1.1em;
-            color: #333;
+        .product-title {
+            flex: 1;
+        }
+
+        .product-title h3 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--dark);
             line-height: 1.4;
+            margin-bottom: 5px;
         }
 
-        .product-image {
+        .product-category {
+            font-size: 0.8em;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .custom-badge {
+            background: linear-gradient(135deg, #4158D0, #C850C0);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 50px;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 10px rgba(200, 80, 192, 0.3);
+        }
+
+        .image-container {
             width: 100%;
-            height: 200px;
-            background: #f5f5f5;
-            border-radius: 10px;
+            height: 220px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
             overflow: hidden;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border);
+            position: relative;
         }
 
-        .product-image img {
+        .image-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
         }
 
+        .image-placeholder {
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .image-placeholder i {
+            font-size: 3em;
+            margin-bottom: 10px;
+            display: block;
+            color: var(--border);
+        }
+
         .logo-21 {
             text-align: center;
-            margin: 10px 0;
+            margin: 15px 0;
         }
 
         .logo-21 span {
             display: inline-block;
-            width: 50px;
-            height: 50px;
-            background: red;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #f72585, #b5179e);
             color: white;
             border-radius: 50%;
-            line-height: 50px;
-            font-weight: bold;
-            font-size: 24px;
-            box-shadow: 0 2px 10px rgba(255,0,0,0.3);
+            line-height: 60px;
+            font-weight: 800;
+            font-size: 1.5em;
+            box-shadow: 0 8px 20px rgba(247, 37, 133, 0.3);
         }
 
-        .barcode-section {
+        .barcode-container {
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 20px 0;
             text-align: center;
-            margin: 15px 0;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
+            border: 1px solid var(--border);
         }
 
         .barcode-img {
             max-width: 100%;
             height: 70px;
             object-fit: contain;
+            margin-bottom: 10px;
         }
 
-        .plu-info {
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-            margin-top: 10px;
-            padding: 8px;
-            background: #f0f0f0;
-            border-radius: 20px;
-            display: inline-block;
-            width: auto;
-            margin-left: auto;
-            margin-right: auto;
+        .plu-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95em;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
         }
 
         /* Navigation */
@@ -298,151 +574,212 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             background: white;
-            border-top: 1px solid #e0e0e0;
+            border-top: 1px solid var(--border);
         }
 
         .nav-btn {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            font-size: 20px;
+            background: white;
+            border: 2px solid var(--border);
+            color: var(--gray);
+            font-size: 1.2em;
             cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
         }
 
         .nav-btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
-            pointer-events: none;
         }
 
         .page-info {
-            font-size: 14px;
-            color: #666;
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--dark);
+            background: var(--light);
+            padding: 8px 20px;
+            border-radius: 50px;
         }
 
         .page-info span {
-            color: #667eea;
-            font-weight: 600;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .position-indicator {
+            text-align: center;
+            padding: 12px;
+            background: var(--light);
+            font-size: 0.9em;
+            color: var(--gray);
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         /* Add Product Form */
         .add-form {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 20px;
+            background: var(--light);
+            border-radius: var(--radius-lg);
+            padding: 25px;
+        }
+
+        .form-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: var(--dark);
+        }
+
+        .form-title i {
+            font-size: 1.8em;
+            color: var(--primary);
+        }
+
+        .form-title h2 {
+            font-size: 1.4em;
+            font-weight: 600;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
-            display: block;
-            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
             font-weight: 600;
-            color: #333;
-            font-size: 14px;
+            color: var(--dark);
+            font-size: 0.9em;
+        }
+
+        .form-group label i {
+            color: var(--primary);
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            font-size: 0.95em;
+            transition: var(--transition);
+            background: white;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
         }
 
-        .form-row {
-            display: flex;
-            gap: 10px;
+        .form-group input.error {
+            border-color: var(--danger);
         }
 
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .btn-submit {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .btn-submit i {
-            margin-right: 5px;
-        }
-
-        /* Success Message */
-        .success-message {
-            background: #d4edda;
-            color: #155724;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .input-hint {
+            font-size: 0.8em;
+            color: var(--gray);
+            margin-top: 5px;
             display: flex;
             align-items: center;
+            gap: 4px;
+        }
+
+        .input-hint i {
+            color: var(--info);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #06d6a0, #1b9aaa);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             gap: 10px;
+            margin-top: 25px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(6, 214, 160, 0.4);
+        }
+
+        /* Messages */
+        .message-container {
+            margin-bottom: 20px;
+        }
+
+        .success-message, .error-message {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
             animation: slideIn 0.3s ease;
+        }
+
+        .success-message {
+            background: #e8faf1;
+            color: #0b5e42;
+            border-left: 4px solid #06d6a0;
+        }
+
+        .error-message {
+            background: #fff1f0;
+            color: #b34033;
+            border-left: 4px solid var(--danger);
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .success-message i {
-            font-size: 20px;
-        }
-
-        /* Error Message */
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            animation: slideIn 0.3s ease;
-        }
-
-        .error-message i {
-            font-size: 20px;
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         /* Loading */
-        .loading {
+        .loading-spinner {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
         }
 
-        .loading i {
+        .loading-spinner i {
             font-size: 3em;
-            color: #667eea;
+            color: var(--primary);
             animation: spin 1s linear infinite;
+        }
+
+        .loading-spinner p {
+            margin-top: 15px;
+            color: var(--gray);
+            font-weight: 500;
         }
 
         @keyframes spin {
@@ -452,57 +789,191 @@
 
         .no-results {
             text-align: center;
-            padding: 50px;
-            color: #6c757d;
+            padding: 50px 20px;
         }
 
-        .position-indicator {
-            text-align: center;
-            padding: 10px;
-            background: #f8f9fa;
-            font-size: 12px;
-            color: #666;
-            border-top: 1px solid #e0e0e0;
+        .no-results i {
+            font-size: 4em;
+            color: var(--border);
+            margin-bottom: 20px;
         }
 
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .no-results h3 {
+            font-size: 1.3em;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .no-results p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .no-results button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .no-results button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Database Info */
+        .db-info {
+            background: white;
+            padding: 15px 20px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
+
+        .db-info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .db-info-item i {
+            font-size: 1.2em;
+            color: var(--primary);
+        }
+
+        .db-info-text {
+            font-size: 0.9em;
+        }
+
+        .db-info-text .label {
+            color: var(--gray);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .db-info-text .value {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .glass-container {
+                border-radius: var(--radius-lg);
+            }
+
+            .brand-header {
+                padding: 20px;
+            }
+
+            .brand-header h1 {
+                font-size: 1.8em;
+            }
+
+            .tab-nav {
+                padding: 10px;
+            }
+
+            .tab-btn {
+                padding: 10px;
+                font-size: 0.85em;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            .search-btn {
+                padding: 14px;
+            }
+
+            .quick-actions {
+                justify-content: center;
+            }
+
+            .db-info {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🔍 Product Finder</h1>
-            <p>Cari & Tambah Produk ke Database</p>
-        </header>
+    <div class="glass-container">
+        <!-- Header -->
+        <div class="brand-header">
+            <h1>
+                <i class="fas fa-cube"></i>
+                Product Finder Pro
+            </h1>
+            <p>
+                <i class="fas fa-database"></i>
+                Database Management System
+            </p>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <i class="fas fa-circle-notch fa-spin"></i>
+            <span>Initializing database...</span>
+            <div class="db-badge" id="dbBadge">
+                <i class="fas fa-file-code"></i>
+                <span>barcodesheet.json</span>
+            </div>
+        </div>
 
         <!-- Tab Navigation -->
         <div class="tab-nav">
             <button class="tab-btn active" id="tabSearch">
-                <i class="fas fa-search"></i> Cari
+                <i class="fas fa-search"></i>
+                <span>Search</span>
             </button>
             <button class="tab-btn" id="tabAdd">
-                <i class="fas fa-plus-circle"></i> Tambah
+                <i class="fas fa-plus-circle"></i>
+                <span>Add Product</span>
             </button>
         </div>
 
         <!-- Search Tab -->
         <div class="tab-content active" id="searchTab">
-            <div class="search-section">
-                <div class="search-box">
+            <div class="search-container">
+                <div class="search-label">
+                    <i class="fas fa-keyboard"></i>
+                    <span>Multi-Query Search</span>
+                </div>
+                
+                <div class="input-group">
                     <textarea 
                         id="searchInput" 
-                        placeholder="Masukkan PLU atau nama produk&#10;Pisah dengan koma atau enter"
-                        rows="2"
+                        placeholder="Enter PLU or product names&#10;Separate with commas or new lines&#10;Example: 10000184, 10010091, indomie"
+                        rows="3"
                     ></textarea>
-                    <button id="searchBtn">Cari</button>
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
                 </div>
 
                 <div class="quick-actions">
-                    <button id="multiModeBtn">Multi Contoh</button>
-                    <button id="clearBtn">Clear</button>
+                    <button class="action-btn" id="multiModeBtn">
+                        <i class="fas fa-layer-group"></i>
+                        Sample Multi
+                    </button>
+                    <button class="action-btn" id="clearBtn">
+                        <i class="fas fa-eraser"></i>
+                        Clear
+                    </button>
                 </div>
             </div>
 
@@ -510,94 +981,159 @@
             <div id="notFoundSection" class="not-found-section" style="display: none;">
                 <div class="not-found-header">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Produk Tidak Ditemukan</h3>
+                    <h3>Products Not Found in Database</h3>
                 </div>
-                <div id="notFoundList"></div>
-                <p style="margin-top: 10px; font-size: 12px; color: #856404;">
-                    <i class="fas fa-info-circle"></i> Klik "Tambah" untuk menambahkan produk baru ke database
+                <div id="notFoundList" class="not-found-list"></div>
+                <p style="margin-top: 15px; font-size: 0.85em; color: #b45b0a; display: flex; align-items: center; gap: 6px;">
+                    <i class="fas fa-info-circle"></i>
+                    Click "Add" to permanently save new products to database
                 </p>
             </div>
 
             <!-- Swipe Container -->
             <div class="swipe-container">
-                <div id="productTrack" class="product-track hide-scrollbar">
-                    <!-- Hasil pencarian akan muncul di sini -->
+                <div id="productTrack" class="product-track">
+                    <!-- Results appear here -->
                 </div>
             </div>
 
             <!-- Navigation -->
             <div class="swipe-nav">
-                <button id="prevBtn" class="nav-btn" disabled>←</button>
+                <button id="prevBtn" class="nav-btn" disabled>
+                    <i class="fas fa-chevron-left"></i>
+                </button>
                 <div id="pageInfo" class="page-info">0/0</div>
-                <button id="nextBtn" class="nav-btn" disabled>→</button>
+                <button id="nextBtn" class="nav-btn" disabled>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
 
             <div id="positionIndicator" class="position-indicator">
-                Hasil pencarian akan muncul di sini
+                <i class="fas fa-arrows-alt-h"></i>
+                <span>Swipe left/right to browse products</span>
             </div>
         </div>
 
         <!-- Add Product Tab -->
         <div class="tab-content" id="addTab">
             <div class="add-form">
-                <div id="messageContainer"></div>
+                <div class="form-title">
+                    <i class="fas fa-box-open"></i>
+                    <h2>Add New Product</h2>
+                </div>
+
+                <div id="messageContainer" class="message-container"></div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-barcode"></i> PLU *</label>
-                    <input type="text" id="addPlu" placeholder="Contoh: 10000184" required>
+                    <label>
+                        <i class="fas fa-barcode"></i>
+                        PLU (Product Lookup)
+                    </label>
+                    <input type="text" id="addPlu" placeholder="e.g., 10000184" required>
+                    <span class="input-hint">
+                        <i class="fas fa-info-circle"></i>
+                        Numbers only, must be unique
+                    </span>
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-tag"></i> Nama Barang *</label>
-                    <input type="text" id="addNama" placeholder="Contoh: Indomie Mi Instan Goreng" required>
+                    <label>
+                        <i class="fas fa-tag"></i>
+                        Product Name
+                    </label>
+                    <input type="text" id="addNama" placeholder="e.g., Indomie Mi Instan Goreng" required>
+                </div>
+
+                <div class="form-row" style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label>
+                            <i class="fas fa-qrcode"></i>
+                            Barcode
+                        </label>
+                        <input type="text" id="addBarcode" placeholder="Optional">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label><i class="fas fa-qrcode"></i> Barcode</label>
-                    <input type="text" id="addBarcode" placeholder="Contoh: 8991002105430 (opsional)">
+                    <label>
+                        <i class="fas fa-image"></i>
+                        Image URL
+                    </label>
+                    <input type="url" id="addGambar" placeholder="https://... (optional)">
                 </div>
 
-                <div class="form-group">
-                    <label><i class="fas fa-image"></i> URL Gambar</label>
-                    <input type="url" id="addGambar" placeholder="https://... (opsional)">
-                </div>
-
-                <button id="addProductBtn" class="btn-submit">
-                    <i class="fas fa-save"></i> Simpan ke Database
+                <button class="submit-btn" id="addProductBtn">
+                    <i class="fas fa-save"></i>
+                    Save to Database
                 </button>
 
-                <p style="margin-top: 15px; font-size: 12px; color: #999; text-align: center;">
-                    <i class="fas fa-database"></i> Data akan disimpan permanen di file JSON
-                </p>
+                <div class="db-info">
+                    <div class="db-info-item">
+                        <i class="fas fa-database"></i>
+                        <div class="db-info-text">
+                            <span class="label">Storage</span>
+                            <span class="value" id="storageInfo">barcodesheet.json</span>
+                        </div>
+                    </div>
+                    <div class="db-info-item">
+                        <i class="fas fa-boxes"></i>
+                        <div class="db-info-text">
+                            <span class="label">Total Products</span>
+                            <span class="value" id="totalProducts">0</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
     <script>
-        // Konfigurasi
+        // Configuration
         const API_URL = 'api.php';
         let allProducts = [];
         let currentResults = [];
         let currentIndex = 0;
         let notFoundQueries = [];
 
-        // Load data produk dari API
+        // Load products from API
         async function loadProducts() {
             try {
+                updateStatus('Loading database...', 'loading');
+                
                 const response = await fetch(`${API_URL}?action=get`);
                 const data = await response.json();
                 
                 if (data.success) {
                     allProducts = data.products;
-                    console.log(`✓ Berhasil memuat ${allProducts.length} produk dari database`);
+                    document.getElementById('totalProducts').textContent = data.total;
+                    
+                    updateStatus(`Database loaded: ${data.total} products`, 'success');
+                    console.log(`✓ Loaded ${allProducts.length} products`);
                 } else {
-                    console.error('Gagal memuat produk:', data.message);
+                    updateStatus('Failed to load database', 'error');
                 }
             } catch (error) {
-                console.error('Error loading products:', error);
+                updateStatus('Connection error', 'error');
+                console.error('Error:', error);
+            }
+        }
+
+        // Update status bar
+        function updateStatus(message, type = 'info') {
+            const statusBar = document.getElementById('statusBar');
+            statusBar.className = 'status-bar';
+            
+            if (type === 'loading') {
+                statusBar.classList.add('loading');
+                statusBar.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
+            } else if (type === 'success') {
+                statusBar.classList.add('success');
+                statusBar.innerHTML = `<i class="fas fa-check-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
+            } else if (type === 'error') {
+                statusBar.classList.add('error');
+                statusBar.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
+            } else {
+                statusBar.innerHTML = `<i class="fas fa-info-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
             }
         }
 
@@ -605,70 +1141,66 @@
         function generateBarcode(barcode, elementId) {
             if (!barcode || barcode === 'null' || barcode === '') return null;
             
-            const canvas = document.createElement('canvas');
-            canvas.id = elementId;
-            
-            JsBarcode(canvas, barcode, {
-                format: "CODE128",
-                lineColor: "#000",
-                width: 2,
-                height: 60,
-                displayValue: false
-            });
-            
-            return canvas.toDataURL('image/png');
-        }
-
-        // Fungsi pencarian
-        function searchProducts(query) {
-            const queries = query.split(/[,\n]/)
-                .map(q => q.trim())
-                .filter(q => q.length > 0);
-            
-            const results = [];
-            notFoundQueries = [];
-            
-            for (const q of queries) {
-                const lowerQ = q.toLowerCase();
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.id = elementId;
                 
-                // Cari di allProducts
-                let product = allProducts.find(p => p.plu === q);
+                JsBarcode(canvas, barcode, {
+                    format: "CODE128",
+                    lineColor: "#000",
+                    width: 2,
+                    height: 60,
+                    displayValue: false,
+                    font: "Inter",
+                    fontSize: 14
+                });
                 
-                if (!product) {
-                    product = allProducts.find(p => 
-                        p.nama && p.nama.toLowerCase().includes(lowerQ)
-                    );
-                }
-                
-                if (product) {
-                    if (!results.some(r => r.plu === product.plu)) {
-                        results.push(product);
-                    }
-                } else {
-                    notFoundQueries.push(q);
-                }
+                return canvas.toDataURL('image/png');
+            } catch (e) {
+                return null;
             }
-            
-            return results;
         }
 
-        // Tampilkan not found
-        function displayNotFound() {
+        // Search via API
+        async function searchProducts(query) {
+            try {
+                const response = await fetch(`${API_URL}?action=search&q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    return {
+                        results: data.products || [],
+                        notFound: data.notFound || []
+                    };
+                }
+                return { results: [], notFound: [] };
+            } catch (error) {
+                console.error('Search error:', error);
+                return { results: [], notFound: [] };
+            }
+        }
+
+        // Display not found
+        function displayNotFound(queries) {
             const section = document.getElementById('notFoundSection');
             const list = document.getElementById('notFoundList');
             
-            if (notFoundQueries.length === 0) {
+            if (!queries || queries.length === 0) {
                 section.style.display = 'none';
                 return;
             }
             
             let html = '';
-            notFoundQueries.forEach(query => {
+            queries.forEach(query => {
                 html += `
                     <div class="not-found-item">
-                        <span class="query">"${query}"</span>
+                        <span class="query">
+                            <i class="fas fa-search"></i>
+                            "${query}"
+                        </span>
                         <button class="add-query-btn" onclick="prepareAddProduct('${query}')">
-                            <i class="fas fa-plus"></i> Tambah
+                            <i class="fas fa-plus"></i>
+                            Add
                         </button>
                     </div>
                 `;
@@ -678,89 +1210,99 @@
             section.style.display = 'block';
         }
 
-        // Prepare add product from not found query
+        // Prepare add from not found
         window.prepareAddProduct = function(query) {
-            // Pindah ke tab add
             document.getElementById('tabAdd').click();
-            
-            // Isi form
             document.getElementById('addPlu').value = query;
             document.getElementById('addNama').focus();
         };
 
-        // Buat card produk
+        // Check if tobacco product
+        function isTobaccoProduct(nama) {
+            if (!nama) return false;
+            const lower = nama.toLowerCase();
+            const keywords = ['rokok', 'filter', 'sampoerna', 'djarum', 'gudang garam', 
+                            'marlboro', 'surya', 'magnum', 'clas mild', 'esse', 'l.a', 'bintang'];
+            return keywords.some(keyword => lower.includes(keyword));
+        }
+
+        // Create product card
         async function createProductCard(product) {
             const hasImage = product.gambar && product.gambar !== 'null' && product.gambar !== '';
-            const isRokok = product.nama && (
-                product.nama.toLowerCase().includes('rokok') ||
-                product.nama.toLowerCase().includes('filter') ||
-                product.nama.toLowerCase().includes('sampoerna') ||
-                product.nama.toLowerCase().includes('djarum') ||
-                product.nama.toLowerCase().includes('gudang garam') ||
-                product.nama.toLowerCase().includes('marlboro')
-            );
+            const isTobacco = isTobaccoProduct(product.nama);
+            const isCustom = product.plu.length > 10 || product.plu.startsWith('9');
             
-            // Generate barcode
             let barcodeDataUrl = '';
             if (product.barcode && product.barcode !== 'null' && product.barcode !== '') {
-                const canvas = document.createElement('canvas');
-                JsBarcode(canvas, product.barcode, {
-                    format: "CODE128",
-                    lineColor: "#000",
-                    width: 2,
-                    height: 60,
-                    displayValue: false
-                });
-                barcodeDataUrl = canvas.toDataURL('image/png');
+                barcodeDataUrl = generateBarcode(product.barcode, `barcode-${product.plu}`);
             }
             
             return `
                 <div class="product-card">
-                    <div class="product-header">
-                        <h3>${product.nama || 'Produk Tanpa Nama'}</h3>
+                    <div class="card-header">
+                        <div class="product-title">
+                            <h3>${product.nama || 'Unnamed Product'}</h3>
+                            <span class="product-category">
+                                <i class="fas fa-tag"></i>
+                                ${isTobacco ? 'Tobacco Product' : 'Regular Product'}
+                            </span>
+                        </div>
+                        ${isCustom ? '<div class="custom-badge"><i class="fas fa-star"></i> Custom</div>' : ''}
                     </div>
                     
-                    <div class="product-image">
+                    <div class="image-container">
                         ${hasImage ? 
-                            `<img src="${product.gambar}" alt="${product.nama}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` :
-                            `<div style="color: #999;">Gambar Tidak Tersedia</div>`
+                            `<img src="${product.gambar}" alt="${product.nama}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'><i class=\'fas fa-image\'></i><p>Image Error</p></div>';">` :
+                            `<div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                                <p>No Image Available</p>
+                            </div>`
                         }
                     </div>
                     
-                    ${isRokok ? `
+                    ${isTobacco ? `
                         <div class="logo-21">
                             <span>21+</span>
                         </div>
                     ` : ''}
                     
-                    <div class="barcode-section">
+                    <div class="barcode-container">
                         ${barcodeDataUrl ? 
                             `<img src="${barcodeDataUrl}" class="barcode-img" alt="Barcode">` :
-                            `<div style="color: #999;">Barcode tidak tersedia</div>`
+                            `<div class="image-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                                <p>No Barcode</p>
+                            </div>`
                         }
                     </div>
                     
-                    <div class="plu-info">
-                        PLU: ${product.plu}
+                    <div style="text-align: center;">
+                        <span class="plu-chip">
+                            <i class="fas fa-barcode"></i>
+                            PLU: ${product.plu}
+                        </span>
                     </div>
                 </div>
             `;
         }
 
-        // Tampilkan hasil di track
-        async function displayResultsInTrack(results) {
+        // Display results
+        async function displayResultsInTrack(results, notFound) {
             const track = document.getElementById('productTrack');
             
-            // Tampilkan not found
-            displayNotFound();
+            displayNotFound(notFound);
             
             if (results.length === 0) {
                 track.innerHTML = `
                     <div class="product-card">
                         <div class="no-results">
-                            <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i>
-                            <h3>Tidak ada produk ditemukan</h3>
-                            <p>Coba kata kunci lain atau tambah produk baru</p>
+                            <i class="fas fa-search"></i>
+                            <h3>No Products Found</h3>
+                            <p>Try different keywords or add new products</p>
+                            <button onclick="document.getElementById('tabAdd').click()">
+                                <i class="fas fa-plus"></i>
+                                Add New Product
+                            </button>
                         </div>
                     </div>
                 `;
@@ -768,7 +1310,7 @@
                 return;
             }
             
-            track.innerHTML = '<div class="product-card"><div class="loading"><i class="fas fa-spinner"></i><p>Memproses gambar...</p></div></div>';
+            track.innerHTML = '<div class="product-card"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i><p>Generating product cards...</p></div></div>';
             
             let html = '';
             for (const product of results) {
@@ -783,7 +1325,7 @@
             scrollToIndex(0);
         }
 
-        // Update navigasi
+        // Update navigation
         function updateNavigation(total) {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
@@ -794,7 +1336,7 @@
                 prevBtn.disabled = true;
                 nextBtn.disabled = true;
                 pageInfo.innerHTML = '0/0';
-                positionIndicator.innerHTML = 'Tidak ada produk';
+                positionIndicator.innerHTML = '<i class="fas fa-arrows-alt-h"></i><span>No products to display</span>';
                 return;
             }
             
@@ -804,10 +1346,11 @@
             prevBtn.disabled = currentIndex === 0;
             nextBtn.disabled = currentIndex === total - 1;
             
-            positionIndicator.innerHTML = `Produk ${current} dari ${total} • Geser ke ${currentIndex === total - 1 ? 'kiri' : 'kanan'} untuk lihat ${currentIndex === total - 1 ? 'sebelumnya' : 'berikutnya'}`;
+            const direction = currentIndex === total - 1 ? 'left' : 'right';
+            positionIndicator.innerHTML = `<i class="fas fa-arrows-alt-h"></i><span>Product ${current} of ${total} • Swipe ${direction} for ${currentIndex === total - 1 ? 'previous' : 'next'}</span>`;
         }
 
-        // Scroll ke index tertentu
+        // Scroll to index
         function scrollToIndex(index) {
             const track = document.getElementById('productTrack');
             const cardWidth = track.clientWidth;
@@ -822,6 +1365,8 @@
             const track = document.getElementById('productTrack');
             
             track.addEventListener('scroll', () => {
+                if (currentResults.length === 0) return;
+                
                 const cardWidth = track.clientWidth;
                 const newIndex = Math.round(track.scrollLeft / cardWidth);
                 
@@ -847,10 +1392,15 @@
             
             setTimeout(() => {
                 container.innerHTML = '';
-            }, 3000);
+            }, 5000);
         }
 
-        // Event listeners
+        // Validate PLU
+        function validatePLU(plu) {
+            return /^\d+$/.test(plu);
+        }
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
             await loadProducts();
             
@@ -879,8 +1429,10 @@
             document.getElementById('searchBtn').addEventListener('click', async () => {
                 const input = document.getElementById('searchInput').value.trim();
                 if (input) {
-                    const results = searchProducts(input);
-                    await displayResultsInTrack(results);
+                    updateStatus('Searching...', 'loading');
+                    const { results, notFound } = await searchProducts(input);
+                    await displayResultsInTrack(results, notFound);
+                    updateStatus(`Found ${results.length} products`, 'success');
                 }
             });
             
@@ -894,7 +1446,7 @@
             
             // Multi mode
             document.getElementById('multiModeBtn').addEventListener('click', () => {
-                document.getElementById('searchInput').value = '10000184, 10010091, 10000020, rokok, indomie';
+                document.getElementById('searchInput').value = '10000184, 10010091, 10000020, rokok, indomie, test123';
             });
             
             // Clear button
@@ -910,15 +1462,11 @@
             
             // Navigation buttons
             document.getElementById('prevBtn').addEventListener('click', () => {
-                if (currentIndex > 0) {
-                    scrollToIndex(currentIndex - 1);
-                }
+                if (currentIndex > 0) scrollToIndex(currentIndex - 1);
             });
             
             document.getElementById('nextBtn').addEventListener('click', () => {
-                if (currentIndex < currentResults.length - 1) {
-                    scrollToIndex(currentIndex + 1);
-                }
+                if (currentIndex < currentResults.length - 1) scrollToIndex(currentIndex + 1);
             });
             
             // Add product
@@ -929,60 +1477,57 @@
                 const gambar = document.getElementById('addGambar').value.trim();
                 
                 if (!plu || !nama) {
-                    showMessage('error', 'PLU dan Nama Barang wajib diisi!');
+                    showMessage('error', 'PLU and Product Name are required!');
                     return;
                 }
                 
-                // Cek duplikat
+                if (!validatePLU(plu)) {
+                    showMessage('error', 'PLU must contain only numbers!');
+                    return;
+                }
+                
                 if (allProducts.some(p => p.plu === plu)) {
-                    showMessage('error', `PLU ${plu} sudah ada di database!`);
+                    showMessage('error', `PLU ${plu} already exists!`);
                     return;
                 }
                 
-                // Kirim ke API
+                updateStatus('Saving to database...', 'loading');
+                
                 try {
                     const response = await fetch(API_URL, {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             action: 'add',
-                            product: {
-                                plu: plu,
-                                nama: nama,
-                                barcode: barcode || '',
-                                gambar: gambar || ''
-                            }
+                            product: { plu, nama, barcode, gambar }
                         })
                     });
                     
                     const result = await response.json();
                     
                     if (result.success) {
-                        // Reload products
                         await loadProducts();
                         
-                        // Reset form
                         document.getElementById('addPlu').value = '';
                         document.getElementById('addNama').value = '';
                         document.getElementById('addBarcode').value = '';
                         document.getElementById('addGambar').value = '';
                         
-                        showMessage('success', `Produk "${nama}" berhasil ditambahkan ke database!`);
+                        showMessage('success', `✅ "${nama}" added successfully!`);
+                        updateStatus(`Product added • Total: ${result.total}`, 'success');
                         
-                        // Jika ada not found dengan PLU ini, hapus dari list
-                        const notFoundIndex = notFoundQueries.indexOf(plu);
-                        if (notFoundIndex > -1) {
-                            notFoundQueries.splice(notFoundIndex, 1);
-                            displayNotFound();
-                        }
+                        setTimeout(() => {
+                            document.getElementById('tabSearch').click();
+                            document.getElementById('searchInput').value = plu;
+                            document.getElementById('searchBtn').click();
+                        }, 1500);
                     } else {
-                        showMessage('error', result.message || 'Gagal menambahkan produk');
+                        showMessage('error', result.message || 'Failed to add product');
+                        updateStatus('Save failed', 'error');
                     }
                 } catch (error) {
-                    console.error('Error adding product:', error);
-                    showMessage('error', 'Gagal terhubung ke server');
+                    showMessage('error', 'Connection error');
+                    updateStatus('Connection error', 'error');
                 }
             });
         });
