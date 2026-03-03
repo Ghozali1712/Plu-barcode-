@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Product Finder - Dengan Tambah Produk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        /* Tab Navigation */
+        .tab-nav {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            background: white;
+        }
+
+        .tab-btn i {
+            margin-right: 5px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            padding: 20px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Search Section */
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .search-box textarea {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .search-box textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #searchBtn {
+            padding: 0 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .quick-actions button {
+            flex: 1;
+            padding: 10px;
+            background: white;
+            border: 1px solid #667eea;
+            color: #667eea;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        /* Not Found Section */
+        .not-found-section {
+            background: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .not-found-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .not-found-header i {
+            font-size: 24px;
+        }
+
+        .not-found-header h3 {
+            font-size: 16px;
+        }
+
+        .not-found-item {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #dc3545;
+        }
+
+        .not-found-item .query {
+            font-weight: 600;
+            color: #dc3545;
+        }
+
+        .add-query-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        /* Swipe Container */
+        .swipe-container {
+            position: relative;
+            width: 100%;
+            background: #f5f5f5;
+            border-radius: 10px;
+            min-height: 450px;
+        }
+
+        .product-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scroll-behavior: smooth;
+            height: 100%;
+            min-height: 450px;
+        }
+
+        .product-track::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-card {
+            flex: 0 0 100%;
+            scroll-snap-align: start;
+            background: white;
+            border-radius: 10px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .product-header h3 {
+            font-size: 1.1em;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e0e0e0;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-21 {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .logo-21 span {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: red;
+            color: white;
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            font-size: 24px;
+            box-shadow: 0 2px 10px rgba(255,0,0,0.3);
+        }
+
+        .barcode-section {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .barcode-img {
+            max-width: 100%;
+            height: 70px;
+            object-fit: contain;
+        }
+
+        .plu-info {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            display: inline-block;
+            width: auto;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Navigation */
+        .swipe-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .page-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .page-info span {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        /* Add Product Form */
+        .add-form {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-submit i {
+            margin-right: 5px;
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-message i {
+            font-size: 20px;
+        }
+
+        /* Error Message */
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .error-message i {
+            font-size: 20px;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .loading i {
+            font-size: 3em;
+            color: #667eea;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 50px;
+            color: #6c757d;
+        }
+
+        .position-indicator {
+            text-align: center;
+            padding: 10px;
+            background: #f8f9fa;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Product Finder</h1>
+            <p>Cari & Tambah Produk ke Database</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+            <button class="tab-btn active" id="tabSearch">
+                <i class="fas fa-search"></i> Cari
+            </button>
+            <button class="tab-btn" id="tabAdd">
+                <i class="fas fa-plus-circle"></i> Tambah
+            </button>
+        </div>
+
+        <!-- Search Tab -->
+        <div class="tab-content active" id="searchTab">
+            <div class="search-section">
+                <div class="search-box">
+                    <textarea 
+                        id="searchInput" 
+                        placeholder="Masukkan PLU atau nama produk&#10;Pisah dengan koma atau enter"
+                        rows="2"
+                    ></textarea>
+                    <button id="searchBtn">Cari</button>
+                </div>
+
+                <div class="quick-actions">
+                    <button id="multiModeBtn">Multi Contoh</button>
+                    <button id="clearBtn">Clear</button>
+                </div>
+            </div>
+
+            <!-- Not Found Section -->
+            <div id="notFoundSection" class="not-found-section" style="display: none;">
+                <div class="not-found-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Produk Tidak Ditemukan</h3>
+                </div>
+                <div id="notFoundList"></div>
+                <p style="margin-top: 10px; font-size: 12px; color: #856404;">
+                    <i class="fas fa-info-circle"></i> Klik "Tambah" untuk menambahkan produk baru ke database
+                </p>
+            </div>
+
+            <!-- Swipe Container -->
+            <div class="swipe-container">
+                <div id="productTrack" class="product-track hide-scrollbar">
+                    <!-- Hasil pencarian akan muncul di sini -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="swipe-nav">
+                <button id="prevBtn" class="nav-btn" disabled>←</button>
+                <div id="pageInfo" class="page-info">0/0</div>
+                <button id="nextBtn" class="nav-btn" disabled>→</button>
+            </div>
+
+            <div id="positionIndicator" class="position-indicator">
+                Hasil pencarian akan muncul di sini
+            </div>
+        </div>
+
+        <!-- Add Product Tab -->
+        <div class="tab-content" id="addTab">
+            <div class="add-form">
+                <div id="messageContainer"></div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-barcode"></i> PLU *</label>
+                    <input type="text" id="addPlu" placeholder="Contoh: 10000184" required>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-tag"></i> Nama Barang *</label>
+                    <input type="text" id="addNama" placeholder="Contoh: Indomie Mi Instan Goreng" required>
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-qrcode"></i> Barcode</label>
+                    <input type="text" id="addBarcode" placeholder="Contoh: 8991002105430 (opsional)">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> URL Gambar</label>
+                    <input type="url" id="addGambar" placeholder="https://... (opsional)">
+                </div>
+
+                <button id="addProductBtn" class="btn-submit">
+                    <i class="fas fa-save"></i> Simpan ke Database
+                </button>
+
+                <p style="margin-top: 15px; font-size: 12px; color: #999; text-align: center;">
+                    <i class="fas fa-database"></i> Data akan disimpan permanen di file JSON
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        // Konfigurasi
+        const API_URL = 'api.php';
+        let allProducts = [];
+        let currentResults = [];
+        let currentIndex = 0;
+        let notFoundQueries = [];
+
+        // Load data produk dari API
+        async function loadProducts() {
+            try {
+                const response = await fetch(`${API_URL}?action=get`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    allProducts = data.products;
+                    console.log(`✓ Berhasil memuat ${allProducts.length} produk dari database`);
+                } else {
+                    console.error('Gagal memuat produk:', data.message);
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+            }
+        }
+
+        // Generate barcode
+        function generateBarcode(barcode, elementId) {
+            if (!barcode || barcode === 'null' || barcode === '') return null;
+            
+            const canvas = document.createElement('canvas');
+            canvas.id = elementId;
+            
+            JsBarcode(canvas, barcode, {
+                format: "CODE128",
+                lineColor: "#000",
+                width: 2,
+                height: 60,
+                displayValue: false
+            });
+            
+            return canvas.toDataURL('image/png');
+        }
+
+        // Fungsi pencarian
+        function searchProducts(query) {
+            const queries = query.split(/[,\n]/)
+                .map(q => q.trim())
+                .filter(q => q.length > 0);
+            
+            const results = [];
+            notFoundQueries = [];
+            
+            for (const q of queries) {
+                const lowerQ = q.toLowerCase();
+                
+                // Cari di allProducts
+                let product = allProducts.find(p => p.plu === q);
+                
+                if (!product) {
+                    product = allProducts.find(p => 
+                        p.nama && p.nama.toLowerCase().includes(lowerQ)
+                    );
+                }
+                
+                if (product) {
+                    if (!results.some(r => r.plu === product.plu)) {
+                        results.push(product);
+                    }
+                } else {
+                    notFoundQueries.push(q);
+                }
+            }
+            
+            return results;
+        }
+
+        // Tampilkan not found
+        function displayNotFound() {
+            const section = document.getElementById('notFoundSection');
+            const list = document.getElementById('notFoundList');
+            
+            if (notFoundQueries.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+            
+            let html = '';
+            notFoundQueries.forEach(query => {
+                html += `
+                    <div class="not-found-item">
+                        <span class="query">"${query}"</span>
+                        <button class="add-query-btn" onclick="prepareAddProduct('${query}')">
+                            <i class="fas fa-plus"></i> Tambah
+                        </button>
+                    </div>
+                `;
+            });
+            
+            list.innerHTML = html;
+            section.style.display = 'block';
+        }
+
+        // Prepare add product from not found query
+        window.prepareAddProduct = function(query) {
+            // Pindah ke tab add
+            document.getElementById('tabAdd').click();
+            
+            // Isi form
+            document.getElementById('addPlu').value = query;
+            document.getElementById('addNama').focus();
+        };
+
+        // Buat card produk
+        async function createProductCard(product) {
+            const hasImage = product.gambar && product.gambar !== 'null' && product.gambar !== '';
+            const isRokok = product.nama && (
+                product.nama.toLowerCase().includes('rokok') ||
+                product.nama.toLowerCase().includes('filter') ||
+                product.nama.toLowerCase().includes('sampoerna') ||
+                product.nama.toLowerCase().includes('djarum') ||
+                product.nama.toLowerCase().includes('gudang garam') ||
+                product.nama.toLowerCase().includes('marlboro')
+            );
+            
+            // Generate barcode
+            let barcodeDataUrl = '';
+            if (product.barcode && product.barcode !== 'null' && product.barcode !== '') {
+                const canvas = document.createElement('canvas');
+                JsBarcode(canvas, product.barcode, {
+                    format: "CODE128",
+                    lineColor: "#000",
+                    width: 2,
+                    height: 60,
+                    displayValue: false
+                });
+                barcodeDataUrl = canvas.toDataURL('image/png');
+            }
+            
+            return `
+                <div class="product-card">
+                    <div class="product-header">
+                        <h3>${product.nama || 'Produk Tanpa Nama'}</h3>
+                    </div>
+                    
+                    <div class="product-image">
+                        ${hasImage ? 
+                            `<img src="${product.gambar}" alt="${product.nama}" loading="lazy" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` :
+                            `<div style="color: #999;">Gambar Tidak Tersedia</div>`
+                        }
+                    </div>
+                    
+                    ${isRokok ? `
+                        <div class="logo-21">
+                            <span>21+</span>
+                        </div>
+                    ` : ''}
+                    
+                    <div class="barcode-section">
+                        ${barcodeDataUrl ? 
+                            `<img src="${barcodeDataUrl}" class="barcode-img" alt="Barcode">` :
+                            `<div style="color: #999;">Barcode tidak tersedia</div>`
+                        }
+                    </div>
+                    
+                    <div class="plu-info">
+                        PLU: ${product.plu}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Tampilkan hasil di track
+        async function displayResultsInTrack(results) {
+            const track = document.getElementById('productTrack');
+            
+            // Tampilkan not found
+            displayNotFound();
+            
+            if (results.length === 0) {
+                track.innerHTML = `
+                    <div class="product-card">
+                        <div class="no-results">
+                            <i class="fas fa-search" style="font-size: 48px; margin-bottom: 15px; color: #ccc;"></i>
+                            <h3>Tidak ada produk ditemukan</h3>
+                            <p>Coba kata kunci lain atau tambah produk baru</p>
+                        </div>
+                    </div>
+                `;
+                updateNavigation(0);
+                return;
+            }
+            
+            track.innerHTML = '<div class="product-card"><div class="loading"><i class="fas fa-spinner"></i><p>Memproses gambar...</p></div></div>';
+            
+            let html = '';
+            for (const product of results) {
+                html += await createProductCard(product);
+            }
+            
+            track.innerHTML = html;
+            currentResults = results;
+            currentIndex = 0;
+            
+            updateNavigation(results.length);
+            scrollToIndex(0);
+        }
+
+        // Update navigasi
+        function updateNavigation(total) {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const pageInfo = document.getElementById('pageInfo');
+            const positionIndicator = document.getElementById('positionIndicator');
+            
+            if (total === 0) {
+                prevBtn.disabled = true;
+                nextBtn.disabled = true;
+                pageInfo.innerHTML = '0/0';
+                positionIndicator.innerHTML = 'Tidak ada produk';
+                return;
+            }
+            
+            const current = currentIndex + 1;
+            pageInfo.innerHTML = `<span>${current}</span>/${total}`;
+            
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === total - 1;
+            
+            positionIndicator.innerHTML = `Produk ${current} dari ${total} • Geser ke ${currentIndex === total - 1 ? 'kiri' : 'kanan'} untuk lihat ${currentIndex === total - 1 ? 'sebelumnya' : 'berikutnya'}`;
+        }
+
+        // Scroll ke index tertentu
+        function scrollToIndex(index) {
+            const track = document.getElementById('productTrack');
+            const cardWidth = track.clientWidth;
+            track.scrollTo({
+                left: index * cardWidth,
+                behavior: 'smooth'
+            });
+        }
+
+        // Setup scroll detection
+        function setupScrollDetection() {
+            const track = document.getElementById('productTrack');
+            
+            track.addEventListener('scroll', () => {
+                const cardWidth = track.clientWidth;
+                const newIndex = Math.round(track.scrollLeft / cardWidth);
+                
+                if (newIndex !== currentIndex && newIndex >= 0 && newIndex < currentResults.length) {
+                    currentIndex = newIndex;
+                    updateNavigation(currentResults.length);
+                }
+            });
+        }
+
+        // Show message
+        function showMessage(type, text) {
+            const container = document.getElementById('messageContainer');
+            const className = type === 'success' ? 'success-message' : 'error-message';
+            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            
+            container.innerHTML = `
+                <div class="${className}">
+                    <i class="fas ${icon}"></i>
+                    <span>${text}</span>
+                </div>
+            `;
+            
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 3000);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', async () => {
+            await loadProducts();
+            
+            // Load JsBarcode
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js';
+            script.onload = setupScrollDetection;
+            document.head.appendChild(script);
+            
+            // Tab switching
+            document.getElementById('tabSearch').addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('tabSearch').classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.getElementById('searchTab').classList.add('active');
+            });
+            
+            document.getElementById('tabAdd').addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById('tabAdd').classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.getElementById('addTab').classList.add('active');
+            });
+            
+            // Search button
+            document.getElementById('searchBtn').addEventListener('click', async () => {
+                const input = document.getElementById('searchInput').value.trim();
+                if (input) {
+                    const results = searchProducts(input);
+                    await displayResultsInTrack(results);
+                }
+            });
+            
+            // Enter key
+            document.getElementById('searchInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    document.getElementById('searchBtn').click();
+                }
+            });
+            
+            // Multi mode
+            document.getElementById('multiModeBtn').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '10000184, 10010091, 10000020, rokok, indomie';
+            });
+            
+            // Clear button
+            document.getElementById('clearBtn').addEventListener('click', () => {
+                document.getElementById('searchInput').value = '';
+                document.getElementById('productTrack').innerHTML = '';
+                document.getElementById('notFoundSection').style.display = 'none';
+                currentResults = [];
+                currentIndex = 0;
+                notFoundQueries = [];
+                updateNavigation(0);
+            });
+            
+            // Navigation buttons
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    scrollToIndex(currentIndex - 1);
+                }
+            });
+            
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                if (currentIndex < currentResults.length - 1) {
+                    scrollToIndex(currentIndex + 1);
+                }
+            });
+            
+            // Add product
+            document.getElementById('addProductBtn').addEventListener('click', async () => {
+                const plu = document.getElementById('addPlu').value.trim();
+                const nama = document.getElementById('addNama').value.trim();
+                const barcode = document.getElementById('addBarcode').value.trim();
+                const gambar = document.getElementById('addGambar').value.trim();
+                
+                if (!plu || !nama) {
+                    showMessage('error', 'PLU dan Nama Barang wajib diisi!');
+                    return;
+                }
+                
+                // Cek duplikat
+                if (allProducts.some(p => p.plu === plu)) {
+                    showMessage('error', `PLU ${plu} sudah ada di database!`);
+                    return;
+                }
+                
+                // Kirim ke API
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            action: 'add',
+                            product: {
+                                plu: plu,
+                                nama: nama,
+                                barcode: barcode || '',
+                                gambar: gambar || ''
+                            }
+                        })
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Reload products
+                        await loadProducts();
+                        
+                        // Reset form
+                        document.getElementById('addPlu').value = '';
+                        document.getElementById('addNama').value = '';
+                        document.getElementById('addBarcode').value = '';
+                        document.getElementById('addGambar').value = '';
+                        
+                        showMessage('success', `Produk "${nama}" berhasil ditambahkan ke database!`);
+                        
+                        // Jika ada not found dengan PLU ini, hapus dari list
+                        const notFoundIndex = notFoundQueries.indexOf(plu);
+                        if (notFoundIndex > -1) {
+                            notFoundQueries.splice(notFoundIndex, 1);
+                            displayNotFound();
+                        }
+                    } else {
+                        showMessage('error', result.message || 'Gagal menambahkan produk');
+                    }
+                } catch (error) {
+                    console.error('Error adding product:', error);
+                    showMessage('error', 'Gagal terhubung ke server');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
