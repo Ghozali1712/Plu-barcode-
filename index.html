@@ -68,35 +68,12 @@
             position: relative;
         }
 
-        /* Decorative Elements */
-        .glass-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 70% 30%, rgba(67, 97, 238, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
         /* Header */
         .brand-header {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             padding: 30px 25px;
             position: relative;
             overflow: hidden;
-        }
-
-        .brand-header::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
-            pointer-events: none;
         }
 
         .brand-header h1 {
@@ -115,20 +92,14 @@
             padding: 12px;
             border-radius: 16px;
             font-size: 0.8em;
-            backdrop-filter: blur(5px);
         }
 
         .brand-header p {
             color: rgba(255,255,255,0.9);
             font-size: 0.95em;
-            font-weight: 400;
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        .brand-header p i {
-            font-size: 1.1em;
         }
 
         /* Status Bar */
@@ -141,31 +112,8 @@
             font-size: 0.9em;
             font-weight: 500;
             border-bottom: 1px solid var(--border);
-            color: var(--dark);
         }
 
-        .status-bar i {
-            font-size: 1.1em;
-        }
-
-        .status-bar.success {
-            background: #e8faf1;
-            color: #0b5e42;
-            border-bottom-color: #a7e0c5;
-        }
-
-        .status-bar.error {
-            background: #fff1f0;
-            color: #b34033;
-            border-bottom-color: #ffcdc9;
-        }
-
-        .status-bar.loading {
-            background: #e8f0fe;
-            color: var(--primary);
-        }
-
-        /* Database Badge */
         .db-badge {
             margin-left: auto;
             background: rgba(67, 97, 238, 0.1);
@@ -176,10 +124,6 @@
             display: flex;
             align-items: center;
             gap: 6px;
-        }
-
-        .db-badge i {
-            font-size: 0.9em;
         }
 
         /* Tab Navigation */
@@ -208,15 +152,6 @@
             gap: 8px;
         }
 
-        .tab-btn i {
-            font-size: 1.1em;
-        }
-
-        .tab-btn:hover {
-            background: var(--light);
-            color: var(--primary);
-        }
-
         .tab-btn.active {
             background: linear-gradient(135deg, var(--primary-light), var(--primary));
             color: white;
@@ -241,24 +176,6 @@
         }
 
         /* Search Section */
-        .search-container {
-            margin-bottom: 25px;
-        }
-
-        .search-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 10px;
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 0.95em;
-        }
-
-        .search-label i {
-            color: var(--primary);
-        }
-
         .input-group {
             display: flex;
             gap: 12px;
@@ -307,15 +224,11 @@
             box-shadow: 0 8px 20px rgba(67, 97, 238, 0.4);
         }
 
-        .search-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Quick Actions */
         .quick-actions {
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
+            margin-bottom: 20px;
         }
 
         .action-btn {
@@ -339,84 +252,66 @@
             background: var(--light);
         }
 
-        .action-btn i {
-            font-size: 1em;
-        }
-
-        /* Not Found Section */
+        /* Not Found Section - DIPERKECIL */
         .not-found-section {
             background: #fff9f0;
             border: 1px solid #ffe0b3;
-            border-radius: var(--radius-lg);
-            padding: 20px;
-            margin-bottom: 25px;
+            border-radius: var(--radius-md);
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            font-size: 0.9em;
         }
 
         .not-found-header {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             color: #b45b0a;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
         }
 
         .not-found-header i {
-            font-size: 1.5em;
-        }
-
-        .not-found-header h3 {
-            font-size: 1.1em;
-            font-weight: 600;
+            font-size: 1.2em;
         }
 
         .not-found-list {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .not-found-item {
             background: white;
-            border-radius: var(--radius-md);
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
+            border-radius: 50px;
+            padding: 5px 12px;
+            display: inline-flex;
             align-items: center;
-            border-left: 4px solid var(--warning);
+            gap: 6px;
+            border-left: 3px solid var(--warning);
             box-shadow: var(--shadow-sm);
+            font-size: 0.85em;
         }
 
         .not-found-item .query {
-            font-weight: 600;
+            font-weight: 500;
             color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .not-found-item .query i {
-            color: var(--warning);
         }
 
         .add-query-btn {
-            background: var(--success);
-            color: white;
+            background: none;
             border: none;
-            border-radius: 50px;
-            padding: 8px 16px;
-            font-size: 0.9em;
-            font-weight: 500;
+            color: var(--success);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-size: 0.9em;
+            padding: 2px 5px;
             transition: var(--transition);
         }
 
         .add-query-btn:hover {
-            background: var(--success-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(76, 201, 240, 0.3);
+            color: var(--success-dark);
+            transform: scale(1.1);
         }
 
         /* Swipe Container */
@@ -427,6 +322,7 @@
             border-radius: var(--radius-lg);
             overflow: hidden;
             border: 1px solid var(--border);
+            min-height: 500px;
         }
 
         .product-track {
@@ -435,14 +331,16 @@
             scroll-snap-type: x mandatory;
             -webkit-overflow-scrolling: touch;
             scroll-behavior: smooth;
-            min-height: 550px;
+            height: 100%;
+            min-height: 500px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
         }
 
         .product-track::-webkit-scrollbar {
             display: none;
         }
 
-        /* Product Card */
         .product-card {
             flex: 0 0 100%;
             scroll-snap-align: start;
@@ -450,44 +348,12 @@
             padding: 25px;
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
-
-        .product-title {
-            flex: 1;
-        }
-
         .product-title h3 {
             font-size: 1.2em;
             font-weight: 600;
             color: var(--dark);
             line-height: 1.4;
-            margin-bottom: 5px;
-        }
-
-        .product-category {
-            font-size: 0.8em;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .custom-badge {
-            background: linear-gradient(135deg, #4158D0, #C850C0);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 50px;
-            font-size: 0.75em;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 10px rgba(200, 80, 192, 0.3);
+            margin-bottom: 15px;
         }
 
         .image-container {
@@ -501,25 +367,12 @@
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border);
-            position: relative;
         }
 
         .image-container img {
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-        }
-
-        .image-placeholder {
-            text-align: center;
-            color: var(--gray);
-        }
-
-        .image-placeholder i {
-            font-size: 3em;
-            margin-bottom: 10px;
-            display: block;
-            color: var(--border);
         }
 
         .logo-21 {
@@ -553,7 +406,6 @@
             max-width: 100%;
             height: 70px;
             object-fit: contain;
-            margin-bottom: 10px;
         }
 
         .plu-chip {
@@ -567,6 +419,54 @@
             font-weight: 600;
             font-size: 0.95em;
             box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        /* Welcome Screen - TAMPILAN AWAL YANG BAGUS */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 500px;
+            text-align: center;
+            padding: 30px;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+        }
+
+        .welcome-screen i {
+            font-size: 5em;
+            color: var(--primary-light);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .welcome-screen h3 {
+            font-size: 1.5em;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .welcome-screen p {
+            color: var(--gray);
+            max-width: 300px;
+            margin: 0 auto 25px;
+        }
+
+        .welcome-screen .example-badge {
+            background: var(--light);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 0.9em;
+            color: var(--primary);
+            border: 1px dashed var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .welcome-screen .example-badge:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
 
         /* Navigation */
@@ -693,23 +593,6 @@
             box-shadow: 0 0 0 4px rgba(67, 97, 238, 0.1);
         }
 
-        .form-group input.error {
-            border-color: var(--danger);
-        }
-
-        .input-hint {
-            font-size: 0.8em;
-            color: var(--gray);
-            margin-top: 5px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .input-hint i {
-            color: var(--info);
-        }
-
         .submit-btn {
             width: 100%;
             padding: 16px;
@@ -776,12 +659,6 @@
             animation: spin 1s linear infinite;
         }
 
-        .loading-spinner p {
-            margin-top: 15px;
-            color: var(--gray);
-            font-weight: 500;
-        }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -802,30 +679,6 @@
             font-size: 1.3em;
             color: var(--dark);
             margin-bottom: 10px;
-        }
-
-        .no-results p {
-            color: var(--gray);
-            margin-bottom: 20px;
-        }
-
-        .no-results button {
-            padding: 12px 24px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .no-results button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(67, 97, 238, 0.3);
         }
 
         /* Database Info */
@@ -851,14 +704,10 @@
             color: var(--primary);
         }
 
-        .db-info-text {
-            font-size: 0.9em;
-        }
-
         .db-info-text .label {
             color: var(--gray);
             display: block;
-            margin-bottom: 2px;
+            font-size: 0.8em;
         }
 
         .db-info-text .value {
@@ -868,43 +717,27 @@
 
         /* Responsive */
         @media (max-width: 480px) {
-            .glass-container {
-                border-radius: var(--radius-lg);
-            }
-
-            .brand-header {
-                padding: 20px;
-            }
-
-            .brand-header h1 {
-                font-size: 1.8em;
-            }
-
-            .tab-nav {
-                padding: 10px;
-            }
-
-            .tab-btn {
-                padding: 10px;
-                font-size: 0.85em;
-            }
-
             .input-group {
                 flex-direction: column;
             }
-
+            
             .search-btn {
                 padding: 14px;
             }
-
-            .quick-actions {
-                justify-content: center;
-            }
-
+            
             .db-info {
                 flex-direction: column;
                 gap: 15px;
                 align-items: flex-start;
+            }
+            
+            .not-found-list {
+                gap: 5px;
+            }
+            
+            .not-found-item {
+                padding: 4px 10px;
+                font-size: 0.8em;
             }
         }
     </style>
@@ -919,17 +752,17 @@
             </h1>
             <p>
                 <i class="fas fa-database"></i>
-                Database Management System
+                Universal Database System
             </p>
         </div>
 
         <!-- Status Bar -->
         <div class="status-bar" id="statusBar">
             <i class="fas fa-circle-notch fa-spin"></i>
-            <span>Initializing database...</span>
+            <span>Initializing...</span>
             <div class="db-badge" id="dbBadge">
                 <i class="fas fa-file-code"></i>
-                <span>barcodesheet.json</span>
+                <span>Loading...</span>
             </div>
         </div>
 
@@ -947,53 +780,50 @@
 
         <!-- Search Tab -->
         <div class="tab-content active" id="searchTab">
-            <div class="search-container">
-                <div class="search-label">
-                    <i class="fas fa-keyboard"></i>
-                    <span>Multi-Query Search</span>
-                </div>
-                
-                <div class="input-group">
-                    <textarea 
-                        id="searchInput" 
-                        placeholder="Enter PLU or product names&#10;Separate with commas or new lines&#10;Example: 10000184, 10010091, indomie"
-                        rows="3"
-                    ></textarea>
-                    <button class="search-btn" id="searchBtn">
-                        <i class="fas fa-search"></i>
-                        <span>Search</span>
-                    </button>
-                </div>
-
-                <div class="quick-actions">
-                    <button class="action-btn" id="multiModeBtn">
-                        <i class="fas fa-layer-group"></i>
-                        Sample Multi
-                    </button>
-                    <button class="action-btn" id="clearBtn">
-                        <i class="fas fa-eraser"></i>
-                        Clear
-                    </button>
-                </div>
+            <div class="input-group">
+                <textarea 
+                    id="searchInput" 
+                    placeholder="Enter PLU or product names&#10;Separate with commas or new lines&#10;Example: 10000184, 10010091, indomie"
+                    rows="3"
+                ></textarea>
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
             </div>
 
-            <!-- Not Found Section -->
+            <div class="quick-actions">
+                <button class="action-btn" id="multiModeBtn">
+                    <i class="fas fa-layer-group"></i>
+                    Sample Multi
+                </button>
+                <button class="action-btn" id="clearBtn">
+                    <i class="fas fa-eraser"></i>
+                    Clear
+                </button>
+            </div>
+
+            <!-- Not Found Section - DIPERKECIL DAN LEBIH RAPI -->
             <div id="notFoundSection" class="not-found-section" style="display: none;">
                 <div class="not-found-header">
                     <i class="fas fa-exclamation-triangle"></i>
-                    <h3>Products Not Found in Database</h3>
+                    <span>Not found:</span>
                 </div>
                 <div id="notFoundList" class="not-found-list"></div>
-                <p style="margin-top: 15px; font-size: 0.85em; color: #b45b0a; display: flex; align-items: center; gap: 6px;">
-                    <i class="fas fa-info-circle"></i>
-                    Click "Add" to permanently save new products to database
-                </p>
             </div>
 
             <!-- Swipe Container -->
             <div class="swipe-container">
                 <div id="productTrack" class="product-track">
-                    <!-- Results appear here -->
+                    <!-- WELCOME SCREEN - Tampilan awal yang bagus -->
+                    <div class="welcome-screen" id="welcomeScreen">
+                        <i class="fas fa-box-open"></i>
+                        <h3>Welcome to Product Finder</h3>
+                        <p>Enter PLU or product names above to search</p>
+                        <div class="example-badge" onclick="document.getElementById('searchInput').value='10000184, 10010091, indomie'; document.getElementById('searchBtn').click();">
+                            <i class="fas fa-search"></i> Try example: 10000184, 10010091, indomie
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1010,7 +840,7 @@
 
             <div id="positionIndicator" class="position-indicator">
                 <i class="fas fa-arrows-alt-h"></i>
-                <span>Swipe left/right to browse products</span>
+                <span>Swipe left/right to browse</span>
             </div>
         </div>
 
@@ -1025,41 +855,23 @@
                 <div id="messageContainer" class="message-container"></div>
 
                 <div class="form-group">
-                    <label>
-                        <i class="fas fa-barcode"></i>
-                        PLU (Product Lookup)
-                    </label>
+                    <label><i class="fas fa-barcode"></i> PLU (Product Lookup)</label>
                     <input type="text" id="addPlu" placeholder="e.g., 10000184" required>
-                    <span class="input-hint">
-                        <i class="fas fa-info-circle"></i>
-                        Numbers only, must be unique
-                    </span>
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        <i class="fas fa-tag"></i>
-                        Product Name
-                    </label>
-                    <input type="text" id="addNama" placeholder="e.g., Indomie Mi Instan Goreng" required>
-                </div>
-
-                <div class="form-row" style="display: flex; gap: 15px;">
-                    <div class="form-group" style="flex: 1;">
-                        <label>
-                            <i class="fas fa-qrcode"></i>
-                            Barcode
-                        </label>
-                        <input type="text" id="addBarcode" placeholder="Optional">
-                    </div>
+                    <label><i class="fas fa-tag"></i> Product Name</label>
+                    <input type="text" id="addNama" placeholder="e.g., Indomie Goreng" required>
                 </div>
 
                 <div class="form-group">
-                    <label>
-                        <i class="fas fa-image"></i>
-                        Image URL
-                    </label>
-                    <input type="url" id="addGambar" placeholder="https://... (optional)">
+                    <label><i class="fas fa-qrcode"></i> Barcode (Optional)</label>
+                    <input type="text" id="addBarcode" placeholder="e.g., 8991002105430">
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-image"></i> Image URL (Optional)</label>
+                    <input type="url" id="addGambar" placeholder="https://...">
                 </div>
 
                 <button class="submit-btn" id="addProductBtn">
@@ -1072,13 +884,13 @@
                         <i class="fas fa-database"></i>
                         <div class="db-info-text">
                             <span class="label">Storage</span>
-                            <span class="value" id="storageInfo">barcodesheet.json</span>
+                            <span class="value" id="storageInfo">Auto</span>
                         </div>
                     </div>
                     <div class="db-info-item">
                         <i class="fas fa-boxes"></i>
                         <div class="db-info-text">
-                            <span class="label">Total Products</span>
+                            <span class="label">Total</span>
                             <span class="value" id="totalProducts">0</span>
                         </div>
                     </div>
@@ -1094,12 +906,11 @@
         let currentResults = [];
         let currentIndex = 0;
         let notFoundQueries = [];
+        let productTrack = null;
 
-        // Load products from API
+        // Load products
         async function loadProducts() {
             try {
-                updateStatus('Loading database...', 'loading');
-                
                 const response = await fetch(`${API_URL}?action=get`);
                 const data = await response.json();
                 
@@ -1107,80 +918,55 @@
                     allProducts = data.products;
                     document.getElementById('totalProducts').textContent = data.total;
                     
-                    updateStatus(`Database loaded: ${data.total} products`, 'success');
-                    console.log(`✓ Loaded ${allProducts.length} products`);
-                } else {
-                    updateStatus('Failed to load database', 'error');
+                    // Update status
+                    const statusBar = document.getElementById('statusBar');
+                    statusBar.innerHTML = `
+                        <i class="fas fa-check-circle" style="color: #4cc9f0;"></i>
+                        <span>${data.environment || 'local'} | ${data.total} products</span>
+                        <div class="db-badge">
+                            <i class="fas fa-database"></i>
+                            <span>${data.storage || 'database'}</span>
+                        </div>
+                    `;
+                    
+                    document.getElementById('storageInfo').textContent = 
+                        data.environment === 'railway' ? 'Railway' : 'Local';
                 }
             } catch (error) {
-                updateStatus('Connection error', 'error');
                 console.error('Error:', error);
             }
         }
 
-        // Update status bar
-        function updateStatus(message, type = 'info') {
-            const statusBar = document.getElementById('statusBar');
-            statusBar.className = 'status-bar';
-            
-            if (type === 'loading') {
-                statusBar.classList.add('loading');
-                statusBar.innerHTML = `<i class="fas fa-circle-notch fa-spin"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
-            } else if (type === 'success') {
-                statusBar.classList.add('success');
-                statusBar.innerHTML = `<i class="fas fa-check-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
-            } else if (type === 'error') {
-                statusBar.classList.add('error');
-                statusBar.innerHTML = `<i class="fas fa-exclamation-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
-            } else {
-                statusBar.innerHTML = `<i class="fas fa-info-circle"></i><span>${message}</span>${document.querySelector('.db-badge').outerHTML}`;
-            }
-        }
-
         // Generate barcode
-        function generateBarcode(barcode, elementId) {
-            if (!barcode || barcode === 'null' || barcode === '') return null;
+        function generateBarcode(barcode) {
+            if (!barcode) return null;
             
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.id = elementId;
-                
-                JsBarcode(canvas, barcode, {
-                    format: "CODE128",
-                    lineColor: "#000",
-                    width: 2,
-                    height: 60,
-                    displayValue: false,
-                    font: "Inter",
-                    fontSize: 14
-                });
-                
-                return canvas.toDataURL('image/png');
-            } catch (e) {
-                return null;
-            }
+            const canvas = document.createElement('canvas');
+            JsBarcode(canvas, barcode, {
+                format: "CODE128",
+                lineColor: "#000",
+                width: 2,
+                height: 60,
+                displayValue: false
+            });
+            return canvas.toDataURL('image/png');
         }
 
-        // Search via API
+        // Search products
         async function searchProducts(query) {
             try {
                 const response = await fetch(`${API_URL}?action=search&q=${encodeURIComponent(query)}`);
                 const data = await response.json();
-                
-                if (data.success) {
-                    return {
-                        results: data.products || [],
-                        notFound: data.notFound || []
-                    };
-                }
-                return { results: [], notFound: [] };
+                return {
+                    results: data.products || [],
+                    notFound: data.notFound || []
+                };
             } catch (error) {
-                console.error('Search error:', error);
                 return { results: [], notFound: [] };
             }
         }
 
-        // Display not found
+        // Display not found - VERSION BARU LEBIH RINGKAS
         function displayNotFound(queries) {
             const section = document.getElementById('notFoundSection');
             const list = document.getElementById('notFoundList');
@@ -1194,13 +980,9 @@
             queries.forEach(query => {
                 html += `
                     <div class="not-found-item">
-                        <span class="query">
-                            <i class="fas fa-search"></i>
-                            "${query}"
-                        </span>
-                        <button class="add-query-btn" onclick="prepareAddProduct('${query}')">
-                            <i class="fas fa-plus"></i>
-                            Add
+                        <span class="query">"${query}"</span>
+                        <button class="add-query-btn" onclick="prepareAddProduct('${query}')" title="Add to database">
+                            <i class="fas fa-plus-circle"></i>
                         </button>
                     </div>
                 `;
@@ -1210,68 +992,54 @@
             section.style.display = 'block';
         }
 
-        // Prepare add from not found
+        // Prepare add product
         window.prepareAddProduct = function(query) {
             document.getElementById('tabAdd').click();
             document.getElementById('addPlu').value = query;
             document.getElementById('addNama').focus();
         };
 
-        // Check if tobacco product
-        function isTobaccoProduct(nama) {
-            if (!nama) return false;
-            const lower = nama.toLowerCase();
-            const keywords = ['rokok', 'filter', 'sampoerna', 'djarum', 'gudang garam', 
-                            'marlboro', 'surya', 'magnum', 'clas mild', 'esse', 'l.a', 'bintang'];
-            return keywords.some(keyword => lower.includes(keyword));
-        }
-
         // Create product card
         async function createProductCard(product) {
             const hasImage = product.gambar && product.gambar !== 'null' && product.gambar !== '';
-            const isTobacco = isTobaccoProduct(product.nama);
-            const isCustom = product.plu.length > 10 || product.plu.startsWith('9');
+            const isRokok = product.nama && (
+                product.nama.toLowerCase().includes('rokok') ||
+                product.nama.toLowerCase().includes('filter') ||
+                product.nama.toLowerCase().includes('sampoerna') ||
+                product.nama.toLowerCase().includes('djarum') ||
+                product.nama.toLowerCase().includes('gudang garam') ||
+                product.nama.toLowerCase().includes('marlboro')
+            );
             
-            let barcodeDataUrl = '';
-            if (product.barcode && product.barcode !== 'null' && product.barcode !== '') {
-                barcodeDataUrl = generateBarcode(product.barcode, `barcode-${product.plu}`);
-            }
+            const barcodeUrl = product.barcode && product.barcode !== 'null' ? generateBarcode(product.barcode) : null;
             
             return `
                 <div class="product-card">
-                    <div class="card-header">
-                        <div class="product-title">
-                            <h3>${product.nama || 'Unnamed Product'}</h3>
-                            <span class="product-category">
-                                <i class="fas fa-tag"></i>
-                                ${isTobacco ? 'Tobacco Product' : 'Regular Product'}
-                            </span>
-                        </div>
-                        ${isCustom ? '<div class="custom-badge"><i class="fas fa-star"></i> Custom</div>' : ''}
+                    <div class="product-title">
+                        <h3>${product.nama || 'Unnamed Product'}</h3>
                     </div>
                     
                     <div class="image-container">
                         ${hasImage ? 
-                            `<img src="${product.gambar}" alt="${product.nama}" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'image-placeholder\'><i class=\'fas fa-image\'></i><p>Image Error</p></div>';">` :
-                            `<div class="image-placeholder">
-                                <i class="fas fa-image"></i>
-                                <p>No Image Available</p>
+                            `<img src="${product.gambar}" alt="${product.nama}" onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">` :
+                            `<div style="color: #999; text-align: center;">
+                                <i class="fas fa-image" style="font-size: 2em; margin-bottom: 10px; display: block;"></i>
+                                No Image
                             </div>`
                         }
                     </div>
                     
-                    ${isTobacco ? `
+                    ${isRokok ? `
                         <div class="logo-21">
                             <span>21+</span>
                         </div>
                     ` : ''}
                     
                     <div class="barcode-container">
-                        ${barcodeDataUrl ? 
-                            `<img src="${barcodeDataUrl}" class="barcode-img" alt="Barcode">` :
-                            `<div class="image-placeholder">
-                                <i class="fas fa-qrcode"></i>
-                                <p>No Barcode</p>
+                        ${barcodeUrl ? 
+                            `<img src="${barcodeUrl}" class="barcode-img" alt="Barcode">` :
+                            `<div style="color: #999;">
+                                <i class="fas fa-qrcode"></i> No Barcode
                             </div>`
                         }
                     </div>
@@ -1286,43 +1054,15 @@
             `;
         }
 
-        // Display results
-        async function displayResultsInTrack(results, notFound) {
-            const track = document.getElementById('productTrack');
+        // Scroll to specific index - DIPERBAIKI
+        function scrollToIndex(index) {
+            if (!productTrack || currentResults.length === 0) return;
             
-            displayNotFound(notFound);
-            
-            if (results.length === 0) {
-                track.innerHTML = `
-                    <div class="product-card">
-                        <div class="no-results">
-                            <i class="fas fa-search"></i>
-                            <h3>No Products Found</h3>
-                            <p>Try different keywords or add new products</p>
-                            <button onclick="document.getElementById('tabAdd').click()">
-                                <i class="fas fa-plus"></i>
-                                Add New Product
-                            </button>
-                        </div>
-                    </div>
-                `;
-                updateNavigation(0);
-                return;
-            }
-            
-            track.innerHTML = '<div class="product-card"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i><p>Generating product cards...</p></div></div>';
-            
-            let html = '';
-            for (const product of results) {
-                html += await createProductCard(product);
-            }
-            
-            track.innerHTML = html;
-            currentResults = results;
-            currentIndex = 0;
-            
-            updateNavigation(results.length);
-            scrollToIndex(0);
+            const cardWidth = productTrack.clientWidth;
+            productTrack.scrollTo({
+                left: index * cardWidth,
+                behavior: 'smooth'
+            });
         }
 
         // Update navigation
@@ -1350,65 +1090,102 @@
             positionIndicator.innerHTML = `<i class="fas fa-arrows-alt-h"></i><span>Product ${current} of ${total} • Swipe ${direction} for ${currentIndex === total - 1 ? 'previous' : 'next'}</span>`;
         }
 
-        // Scroll to index
-        function scrollToIndex(index) {
-            const track = document.getElementById('productTrack');
-            const cardWidth = track.clientWidth;
-            track.scrollTo({
-                left: index * cardWidth,
-                behavior: 'smooth'
-            });
-        }
-
-        // Setup scroll detection
-        function setupScrollDetection() {
+        // Display results
+        async function displayResultsInTrack(results, notFound) {
             const track = document.getElementById('productTrack');
             
-            track.addEventListener('scroll', () => {
-                if (currentResults.length === 0) return;
-                
-                const cardWidth = track.clientWidth;
-                const newIndex = Math.round(track.scrollLeft / cardWidth);
-                
-                if (newIndex !== currentIndex && newIndex >= 0 && newIndex < currentResults.length) {
-                    currentIndex = newIndex;
-                    updateNavigation(currentResults.length);
-                }
-            });
-        }
-
-        // Show message
-        function showMessage(type, text) {
-            const container = document.getElementById('messageContainer');
-            const className = type === 'success' ? 'success-message' : 'error-message';
-            const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+            // Hide welcome screen
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            if (welcomeScreen) welcomeScreen.style.display = 'none';
             
-            container.innerHTML = `
-                <div class="${className}">
-                    <i class="fas ${icon}"></i>
-                    <span>${text}</span>
-                </div>
-            `;
+            // Display not found (ringkas)
+            displayNotFound(notFound);
             
+            if (results.length === 0) {
+                track.innerHTML = `
+                    <div class="product-card">
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h3>No Products Found</h3>
+                            <p style="margin-top: 10px; color: var(--gray);">Try different keywords or add new products</p>
+                            <button onclick="document.getElementById('tabAdd').click()" style="margin-top: 20px; padding: 10px 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; border: none; border-radius: 50px; cursor: pointer;">
+                                <i class="fas fa-plus"></i> Add New Product
+                            </button>
+                        </div>
+                    </div>
+                `;
+                currentResults = [];
+                currentIndex = 0;
+                updateNavigation(0);
+                return;
+            }
+            
+            track.innerHTML = '<div class="product-card"><div class="loading-spinner"><i class="fas fa-circle-notch fa-spin"></i><p>Loading products...</p></div></div>';
+            
+            let html = '';
+            for (const product of results) {
+                html += await createProductCard(product);
+            }
+            
+            track.innerHTML = html;
+            currentResults = results;
+            currentIndex = 0;
+            
+            updateNavigation(results.length);
+            
+            // Reset scroll position
             setTimeout(() => {
-                container.innerHTML = '';
-            }, 5000);
+                if (productTrack) {
+                    productTrack.scrollLeft = 0;
+                }
+            }, 100);
         }
 
-        // Validate PLU
-        function validatePLU(plu) {
-            return /^\d+$/.test(plu);
+        // Clear all results
+        function clearResults() {
+            const track = document.getElementById('productTrack');
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            
+            // Tampilkan welcome screen lagi
+            if (welcomeScreen) {
+                welcomeScreen.style.display = 'flex';
+                track.innerHTML = '';
+                track.appendChild(welcomeScreen);
+            }
+            
+            document.getElementById('notFoundSection').style.display = 'none';
+            currentResults = [];
+            currentIndex = 0;
+            notFoundQueries = [];
+            updateNavigation(0);
         }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', async () => {
             await loadProducts();
             
+            // Get product track element
+            productTrack = document.getElementById('productTrack');
+            
             // Load JsBarcode
             const script = document.createElement('script');
             script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js';
-            script.onload = setupScrollDetection;
             document.head.appendChild(script);
+            
+            // Setup scroll detection - DIPERBAIKI
+            if (productTrack) {
+                productTrack.addEventListener('scroll', () => {
+                    if (currentResults.length === 0) return;
+                    
+                    const cardWidth = productTrack.clientWidth;
+                    const newIndex = Math.round(productTrack.scrollLeft / cardWidth);
+                    
+                    if (newIndex !== currentIndex && newIndex >= 0 && newIndex < currentResults.length) {
+                        currentIndex = newIndex;
+                        updateNavigation(currentResults.length);
+                    }
+                });
+            }
             
             // Tab switching
             document.getElementById('tabSearch').addEventListener('click', () => {
@@ -1429,10 +1206,8 @@
             document.getElementById('searchBtn').addEventListener('click', async () => {
                 const input = document.getElementById('searchInput').value.trim();
                 if (input) {
-                    updateStatus('Searching...', 'loading');
                     const { results, notFound } = await searchProducts(input);
                     await displayResultsInTrack(results, notFound);
-                    updateStatus(`Found ${results.length} products`, 'success');
                 }
             });
             
@@ -1446,27 +1221,26 @@
             
             // Multi mode
             document.getElementById('multiModeBtn').addEventListener('click', () => {
-                document.getElementById('searchInput').value = '10000184, 10010091, 10000020, rokok, indomie, test123';
+                document.getElementById('searchInput').value = '10000184, 10010091, 10000020, rokok, indomie';
             });
             
-            // Clear button
+            // Clear button - DIPERBAIKI
             document.getElementById('clearBtn').addEventListener('click', () => {
                 document.getElementById('searchInput').value = '';
-                document.getElementById('productTrack').innerHTML = '';
-                document.getElementById('notFoundSection').style.display = 'none';
-                currentResults = [];
-                currentIndex = 0;
-                notFoundQueries = [];
-                updateNavigation(0);
+                clearResults();
             });
             
-            // Navigation buttons
+            // Navigation buttons - DIPERBAIKI
             document.getElementById('prevBtn').addEventListener('click', () => {
-                if (currentIndex > 0) scrollToIndex(currentIndex - 1);
+                if (currentIndex > 0) {
+                    scrollToIndex(currentIndex - 1);
+                }
             });
             
             document.getElementById('nextBtn').addEventListener('click', () => {
-                if (currentIndex < currentResults.length - 1) scrollToIndex(currentIndex + 1);
+                if (currentIndex < currentResults.length - 1) {
+                    scrollToIndex(currentIndex + 1);
+                }
             });
             
             // Add product
@@ -1477,21 +1251,14 @@
                 const gambar = document.getElementById('addGambar').value.trim();
                 
                 if (!plu || !nama) {
-                    showMessage('error', 'PLU and Product Name are required!');
+                    showMessage('error', 'PLU and Name are required!');
                     return;
                 }
                 
-                if (!validatePLU(plu)) {
-                    showMessage('error', 'PLU must contain only numbers!');
+                if (!/^\d+$/.test(plu)) {
+                    showMessage('error', 'PLU must be numbers only!');
                     return;
                 }
-                
-                if (allProducts.some(p => p.plu === plu)) {
-                    showMessage('error', `PLU ${plu} already exists!`);
-                    return;
-                }
-                
-                updateStatus('Saving to database...', 'loading');
                 
                 try {
                     const response = await fetch(API_URL, {
@@ -1507,14 +1274,11 @@
                     
                     if (result.success) {
                         await loadProducts();
-                        
                         document.getElementById('addPlu').value = '';
                         document.getElementById('addNama').value = '';
                         document.getElementById('addBarcode').value = '';
                         document.getElementById('addGambar').value = '';
-                        
-                        showMessage('success', `✅ "${nama}" added successfully!`);
-                        updateStatus(`Product added • Total: ${result.total}`, 'success');
+                        showMessage('success', 'Product added successfully!');
                         
                         setTimeout(() => {
                             document.getElementById('tabSearch').click();
@@ -1522,15 +1286,25 @@
                             document.getElementById('searchBtn').click();
                         }, 1500);
                     } else {
-                        showMessage('error', result.message || 'Failed to add product');
-                        updateStatus('Save failed', 'error');
+                        showMessage('error', result.message || 'Failed to add');
                     }
                 } catch (error) {
                     showMessage('error', 'Connection error');
-                    updateStatus('Connection error', 'error');
                 }
             });
         });
+
+        // Show message
+        function showMessage(type, text) {
+            const container = document.getElementById('messageContainer');
+            container.innerHTML = `
+                <div class="${type === 'success' ? 'success-message' : 'error-message'}">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    <span>${text}</span>
+                </div>
+            `;
+            setTimeout(() => container.innerHTML = '', 5000);
+        }
     </script>
 </body>
 </html>
